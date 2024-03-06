@@ -26,9 +26,9 @@ export default class selection extends Phaser.Scene {
     // tous les assets du jeu sont placés dans le sous-répertoire src/assets/
     this.load.image("img_ciel", "src/assets/sky.png");
     this.load.image("img_plateforme", "src/assets/platform.png");
-    this.load.spritesheet("img_perso", "src/assets/dude.png", {
-      frameWidth: 32,
-      frameHeight: 48
+    this.load.spritesheet("img_perso", "src/assets/perso.png", {
+      frameWidth: 38,
+      frameHeight: 40
     });
     this.load.image("img_porte1", "src/assets/door1.png");
     this.load.image("img_porte2", "src/assets/door2.png");
@@ -90,7 +90,7 @@ export default class selection extends Phaser.Scene {
     player = this.physics.add.sprite(100, 450, "img_perso");
 
     //  propriétées physiqyes de l'objet player :
-    player.setBounce(0.2); // on donne un petit coefficient de rebond
+    player.setBounce(0); // on donne un petit coefficient de rebond
     player.setCollideWorldBounds(true); // le player se cognera contre les bords du monde
 
     /***************************
@@ -103,17 +103,17 @@ export default class selection extends Phaser.Scene {
     this.anims.create({
       key: "anim_tourne_gauche", // key est le nom de l'animation : doit etre unique poru la scene.
       frames: this.anims.generateFrameNumbers("img_perso", {
-        start: 0,
-        end: 3
+        start: 6,
+        end: 8
       }), // on prend toutes les frames de img perso numerotées de 0 à 3
-      frameRate: 10, // vitesse de défilement des frames
+      frameRate: 7, // vitesse de défilement des frames
       repeat: -1 // nombre de répétitions de l'animation. -1 = infini
     });
 
     // creation de l'animation "anim_tourne_face" qui sera jouée sur le player lorsque ce dernier n'avance pas.
     this.anims.create({
       key: "anim_face",
-      frames: [{ key: "img_perso", frame: 4 }],
+      frames: [{ key: "img_perso", frame: 1 }],
       frameRate: 20
     });
 
@@ -121,10 +121,10 @@ export default class selection extends Phaser.Scene {
     this.anims.create({
       key: "anim_tourne_droite",
       frames: this.anims.generateFrameNumbers("img_perso", {
-        start: 5,
-        end: 8
+        start: 12,
+        end: 14
       }),
-      frameRate: 10,
+      frameRate: 7,
       repeat: -1
     });
 
