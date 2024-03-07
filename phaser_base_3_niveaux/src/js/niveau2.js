@@ -12,6 +12,7 @@ export default class niveau2 extends Phaser.Scene {
     this.load.image("phaser_rat", "src/assets/rat (2).png");
     this.load.image("phaser_rat2", "src/assets/rat (2).png");
     this.load.image("phaser_rat3", "src/assets/rat (2).png");
+    this.load.image("phaser_rat0", "src/assets/rat (2).png");
     this.load.image("phaser_caca", "src/assets/caca.png");
     this.load.image("phaser_caca2", "src/assets/caca.png");
     this.load.image("phaser_caca3", "src/assets/caca.png");
@@ -20,6 +21,7 @@ export default class niveau2 extends Phaser.Scene {
     this.load.image("phaser_spider3", "src/assets/spider.png");
     this.load.image("phaser_M", "src/assets/M.png");
     this.load.image("img_porte2", "src/assets/door2.png");
+    this.load.image("img_passage3", "src/assets/door2.png");
   
     
   }
@@ -34,6 +36,7 @@ export default class niveau2 extends Phaser.Scene {
     métro.setCollisionByProperty({ estSolide: true });
 
     this.player = this.physics.add.sprite(100, 450, "img_perso").setDepth(2);
+    this.player.setSize(30,35);
     this.player.refreshBody();
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
@@ -48,10 +51,12 @@ export default class niveau2 extends Phaser.Scene {
 
     // Uncomment the following lines to enable the door
     this.porte_retour = this.physics.add.staticSprite(100, 450, "img_porte2");
+    this.porte_passage3 = this.physics.add.staticSprite(5800, 450, "img_passage3");
     // this.physics.add.collider(this.player, this.porte_retour);
 
     
     this.phaser_rat = this.physics.add.sprite(200, 200, "phaser_rat");
+    this.phaser_rat.setSize(30,30);
     this.phaser_rat.setCollideWorldBounds(true);
     this.physics.add.collider(this.phaser_rat, métro);
     this.phaser_rat.setVelocityX(-50);   
@@ -60,17 +65,28 @@ export default class niveau2 extends Phaser.Scene {
 
     this.phaser_rat2 = this.physics.add.sprite(800, 200, "phaser_rat2");
     this.phaser_rat2.setCollideWorldBounds(true);
+    this.phaser_rat2.setSize(30,30);
     this.physics.add.collider(this.phaser_rat2, métro);
     this.phaser_rat2.setVelocityX(-50);
     // Vous pouvez ajouter d'autres configurations et animations ici
     this.physics.add.collider(this.player,this.phaser_rat2,this.retourAuDebut2,null,this);    
 
-    this.phaser_rat3 = this.physics.add.sprite(1500, 200, "phaser_rat3");
+    this.phaser_rat3 = this.physics.add.sprite(1500, 150, "phaser_rat3");
     this.phaser_rat3.setCollideWorldBounds(true);
+    this.phaser_rat3.setSize(30,30);
     this.physics.add.collider(this.phaser_rat3, métro);
     this.phaser_rat3.setVelocityX(-50); 
     // Vous pouvez ajouter d'autres configurations et animations ici
     this.physics.add.collider(this.player,this.phaser_rat3,this.retourAuDebut3,null,this);
+
+
+    this.phaser_rat0 = this.physics.add.sprite(5500, 200, "phaser_rat0");
+    this.phaser_rat0.setCollideWorldBounds(true);
+    this.phaser_rat0.setSize(30,30);
+    this.physics.add.collider(this.phaser_rat0, métro);
+    this.phaser_rat0.setVelocityX(-50); 
+    // Vous pouvez ajouter d'autres configurations et animations ici
+    this.physics.add.collider(this.player,this.phaser_rat0,this.retourAuDebut0,null,this);
 
 
 
@@ -134,6 +150,13 @@ export default class niveau2 extends Phaser.Scene {
       callback: this.changeSide3, // Fonction à appeler à chaque itération
       callbackScope: this // Portée de la fonction de rappel
     });
+
+    this.time.addEvent({
+      delay: 1000, // Délai de 1000 millisecondes (1 seconde)
+      loop: true, // Boucle activée
+      callback: this.changeSide0, // Fonction à appeler à chaque itération
+      callbackScope: this // Portée de la fonction de rappel
+    });
   
 
     
@@ -159,10 +182,19 @@ export default class niveau2 extends Phaser.Scene {
   }
   if (Phaser.Input.Keyboard.JustDown(this.clavier.space) == true) {
     if (this.physics.overlap(this.player, this.porte_retour)) {
-      this.scene.switch("selection");
-      }
-  } 
+        this.scene.switch("selection");
+    } else if (this.physics.overlap(this.player, this.porte_passage3)) {
+        this.scene.switch("niveau3");
+    }
+} 
   }   
+
+retourAuDebut0(){
+  this.player.setPosition(100,450);
+  this.phaser_M.setVelocityY(0);
+  this.phaser_M.setVelocityX(0);
+}
+
 retourAuDebut(){
   this.player.setPosition(100,450);
   this.phaser_rat.setVelocityY(-100);
@@ -230,6 +262,12 @@ changeSide3() {
   console.log("changerSide3")
   // Changer le côté du rat, par exemple, en inversant sa vélocité
   this.phaser_rat3.setVelocityX(-this.phaser_rat3.body.velocity.x);
+
+}
+changeSide0() {
+  console.log("changerSide0")
+  // Changer le côté du rat, par exemple, en inversant sa vélocité
+  this.phaser_rat0.setVelocityX(-this.phaser_rat0.body.velocity.x);
 
 }
 }
