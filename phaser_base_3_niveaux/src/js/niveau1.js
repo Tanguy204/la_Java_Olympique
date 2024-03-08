@@ -231,8 +231,6 @@ export default class niveau1 extends Phaser.Scene {
   retourAuDebutS(){
     this.player1.setPosition(20, 450); 
   }
-  
-
   genererGrp(niv, sens,voieX,groupe){
 
    

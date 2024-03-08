@@ -243,8 +243,8 @@ false;
 
 
     player =
-this.physics.add.sprite(1850,
-150,
+this.physics.add.sprite(150,
+1850,
 "img_perso").setDepth(2);
     player.direction =
 'left';

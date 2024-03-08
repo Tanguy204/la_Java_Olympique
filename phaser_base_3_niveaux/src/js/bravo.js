@@ -8,7 +8,7 @@ export default class bravo extends Phaser.Scene {
     
     //on charge les images
     preload() {
-      this.load.image("menu_tuto", "src/assets/TUTO.png");
+      this.load.image("menu_tuto1", "src/assets/TUTO.png");
       //this.load.image("menu_retour", "src/assets/play.png");
      // this.load.audio('musique_fond', 'src/assets/musique_menu.ogg');
       this.load.image("menu_retour", "src/assets/btnretour.png");
@@ -18,7 +18,7 @@ export default class bravo extends Phaser.Scene {
         
      // on place les éléments de fond
       this.add
-        .image(0, 0, "menu_tuto")
+        .image(0, 0, "menu_tuto1")
         .setOrigin(0)
         .setDepth(0);
   
